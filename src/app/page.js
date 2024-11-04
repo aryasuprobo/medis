@@ -68,6 +68,7 @@ export default function Home() {
     thorax: "",
     gastro: "",
     respiration: "",
+    heartRate: "",
     boneMuscle: "",
     extremities: "",
     urogenital: ""
@@ -88,6 +89,38 @@ export default function Home() {
     const isAnimalComplete = Object.values(animal).every((value) => value.trim() !== "");
     const isPhysicalExamComplete = Object.values(physicalExam).every((value) => value.trim() !== "");
 
+    setClient({
+      id: '',
+      name: '',
+      address: '',
+      phone: '',
+      examDate: '',
+      dvm: '',
+      id: "",
+      name: "",
+      species: "",
+      breed: "",
+      weight: "",
+      age: "",
+      gender: "", temperature: "",
+      appearance: "",
+      eyes: "",
+      ears: "",
+      nose: "",
+      mouth: "",
+      skinHair: "",
+      lymphNodes: "",
+      mucosa: "",
+      abdomen: "",
+      thorax: "",
+      gastro: "",
+      respiration: "",
+      heartRate: "",
+      boneMuscle: "",
+      extremities: "",
+      urogenital: ""
+    });
+
     if (!isClientComplete || !isAnimalComplete || !isPhysicalExamComplete) {
       alert("Mohon lengkapi semua field.");
       return;
@@ -99,7 +132,6 @@ export default function Home() {
       await addDoc(collection(db, "physical_exams"), physicalExam);
 
       alert("Data berhasil disimpan!");
-      // router.push("/display");
     } catch (error) {
       console.error("Error menyimpan data: ", error);
       alert("Gagal menyimpan data");
@@ -145,7 +177,7 @@ export default function Home() {
             flexDirection={{ base: "column", md: "row" }} >
             <VStack width="100%" align="flex-start">
               <Text mb="3" fontSize="2xl" fontWeight="bold" color="gray.950" >
-                Identitas Anda
+                Identitas Klien
               </Text>
               <Field label="ID Klien" color="gray.950" >
                 <Input placeholder="" variant="outline" type="text" maxWidth="600px" width="full" name="id" value={client.id} onChange={(e) => handleInputChange(e, setClient, client)} />
@@ -244,8 +276,11 @@ export default function Home() {
             <Field label="Gastro" color="gray.950" >
               <Input placeholder="" variant="outline" maxWidth="600px" width="full" type="text" name="gastro" value={animal.gastro} onChange={(e) => handleInputChange(e, setPhysicalExam, physicalExam)} />
             </Field>
-            <Field label="Respirasi" color="gray.950" >
+            <Field label="Respiratory" color="gray.950" >
               <Input placeholder="" variant="outline" maxWidth="600px" width="full" type="text" name="respiration" value={animal.respiration} onChange={(e) => handleInputChange(e, setPhysicalExam, physicalExam)} />
+            </Field>
+            <Field label="Heart rate" color="gray.950" >
+              <Input placeholder="" variant="outline" maxWidth="600px" width="full" type="text" name="heartRate" value={animal.heartRate} onChange={(e) => handleInputChange(e, setPhysicalExam, physicalExam)} />
             </Field>
             <Field label="Tulang dan otot" color="gray.950" >
               <Input placeholder="" variant="outline" maxWidth="600px" width="full" type="text" name="boneMuscle" value={animal.boneMuscle} onChange={(e) => handleInputChange(e, setPhysicalExam, physicalExam)} />
@@ -259,7 +294,7 @@ export default function Home() {
           </VStack>
 
           <VStack justify="center" width="full" spacing={4} mt={8} >
-            <Button bg="teal.500" _hover={{ bg: "teal.700", color: "white" }} type="submit" variant="surface" maxWidth="600px" width="full" mb={8} >Simpan</Button>
+            <Button bg="teal.500" _hover={{ bg: "teal.700", color: "white" }} type="submit" variant="surface" maxWidth="600px" width="full" mb={8} onClick={handleSubmit}>Simpan</Button>
           </VStack>
           <VStack justify="center" width="full" spacing={1} mt={1} >
             <Button bg="grey.800" _hover={{ bg: "grey.200", color: "white" }} type="submit" variant="surface" maxWidth="600px" width="full" mb={8} onClick={() => router.push("/display")}>Lihat data</Button>

@@ -30,7 +30,11 @@ const DisplayPage = () => {
                     return { ...exam, animalId: animal ? animal.id : null, animalName: animal ? animal.name : "Unknown" };
                 });
 
-                setData({ clients, animals, exams: combinedData });
+                const sortedData = combinedData.sort((a, b) => {
+                    return new Date(b.examDate) - new Date(a.examDate);
+                });
+
+                setData({ clients, animals, exams: sortedData });
             } catch (error) {
                 console.error("Error fetching data: ", error);
             } finally {
@@ -67,7 +71,11 @@ const DisplayPage = () => {
                 <Box display="flex" flexDirection="column" alignItems="center" mt={4} >
 
 
+
                     <Box width="80%" overflowX="auto" mb={4}>
+                        <Text mb="5" fontSize="2xl" fontWeight="bold" color="gray.950" >
+                            Data Klien
+                        </Text>
                         <Table.Root size="sm" variant="striped" colorScheme="gray" >
                             <Table.ColumnGroup>
                                 <Table.Column htmlWidth="50%" />
@@ -75,7 +83,8 @@ const DisplayPage = () => {
                                 <Table.Column />
                             </Table.ColumnGroup>
                             <Table.Header>
-                                <Table.Row bg="teal.500" color="white" fontWeight="bold">
+
+                                <Table.Row bg="gray.500" color="white" fontWeight="bold">
                                     <Table.ColumnHeader textAlign="center">No</Table.ColumnHeader>
                                     <Table.ColumnHeader textAlign="center">ID Klien</Table.ColumnHeader>
                                     <Table.ColumnHeader textAlign="center">Nama Klien</Table.ColumnHeader>
@@ -103,6 +112,9 @@ const DisplayPage = () => {
 
 
                     <Box width="80%" overflowX="auto" mb={4}>
+                        <Text mb="5" fontSize="2xl" fontWeight="bold" color="gray.950" >
+                            Data Hewan
+                        </Text>
                         <Table.Root size="sm" variant="striped" colorScheme="gray" >
                             <Table.ColumnGroup>
                                 <Table.Column htmlWidth="50%" />
@@ -110,7 +122,8 @@ const DisplayPage = () => {
                                 <Table.Column />
                             </Table.ColumnGroup>
                             <Table.Header>
-                                <Table.Row bg="orange.500" color="white">
+
+                                <Table.Row bg="gray.500" color="white">
                                     <Table.ColumnHeader textAlign="center">No</Table.ColumnHeader>
                                     <Table.ColumnHeader textAlign="center">ID Hewan</Table.ColumnHeader>
                                     <Table.ColumnHeader textAlign="center">Nama Hewan</Table.ColumnHeader>
@@ -141,14 +154,19 @@ const DisplayPage = () => {
 
 
                     <Box width="80%" overflowX="auto" mb={4}>
+                        <Text mb="5" fontSize="2xl" fontWeight="bold" color="gray.950" >
+                            Kondisi Hewan
+                        </Text>
                         <Table.Root size="sm" variant="striped" colorScheme="gray" >
                             <Table.ColumnGroup>
                                 <Table.Column htmlWidth="50%" />
                                 <Table.Column htmlWidth="40%" />
                                 <Table.Column />
                             </Table.ColumnGroup>
+
                             <Table.Header>
-                                <Table.Row bg="blue.500" color="white" mb="3" fontWeight="bold">
+
+                                <Table.Row bg="gray.500" color="white" mb="3" fontWeight="bold">
                                     <Table.ColumnHeader textAlign="center">No</Table.ColumnHeader>
                                     <Table.ColumnHeader textAlign="center">Temperature</Table.ColumnHeader>
                                     <Table.ColumnHeader textAlign="center">Appearance</Table.ColumnHeader>
@@ -162,7 +180,8 @@ const DisplayPage = () => {
                                     <Table.ColumnHeader textAlign="center">Abdomen</Table.ColumnHeader>
                                     <Table.ColumnHeader textAlign="center">Thorax</Table.ColumnHeader>
                                     <Table.ColumnHeader textAlign="center">Gastro</Table.ColumnHeader>
-                                    <Table.ColumnHeader textAlign="center">Respiration</Table.ColumnHeader>
+                                    <Table.ColumnHeader textAlign="center">Respiratory</Table.ColumnHeader>
+                                    <Table.ColumnHeader textAlign="center">Hear rate</Table.ColumnHeader>
                                     <Table.ColumnHeader textAlign="center">Tulang & Otot</Table.ColumnHeader>
                                     <Table.ColumnHeader textAlign="center">Extremities</Table.ColumnHeader>
 
@@ -186,6 +205,7 @@ const DisplayPage = () => {
                                         <Table.Cell color="black" fontWeight="bold" textAlign="center">{exam.thorax}</Table.Cell>
                                         <Table.Cell color="black" fontWeight="bold" textAlign="center">{exam.gastro}</Table.Cell>
                                         <Table.Cell color="black" fontWeight="bold" textAlign="center">{exam.respiration}</Table.Cell>
+                                        <Table.Cell color="black" fontWeight="bold" textAlign="center">{exam.heartRate}</Table.Cell>
                                         <Table.Cell color="black" fontWeight="bold" textAlign="center">{exam.boneMuscle}</Table.Cell>
                                         <Table.Cell color="black" fontWeight="bold" textAlign="center">{exam.extremities}</Table.Cell>
                                         <Table.Cell color="black" fontWeight="bold" textAlign="center">{exam.urogenital}</Table.Cell>
@@ -198,11 +218,13 @@ const DisplayPage = () => {
 
 
 
-
+                    <VStack justify="center" width="full" spacing={1} mt={1} >
+                        <Button bg="grey.800" _hover={{ bg: "grey.200", color: "white" }} type="submit" variant="surface" maxWidth="600px" width="full" mb={8} onClick={() => router.push("/")}>Kembali</Button>
+                    </VStack>
 
                 </Box >
             </Container>
-            <Bleed blockEnd="8" mt="auto">
+            <Bleed blockEnd="8" mt="auto" width={"100%"}>
                 <Box bg="gray.800" color="white" py={4} textAlign="center" mt="auto">
                     <Text>© 2024 Pelangi Vet Klinik. All rights reserved.</Text>
                 </Box>
